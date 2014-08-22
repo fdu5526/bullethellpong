@@ -29,6 +29,7 @@ public class GameCharacter extends GameObject
 		int tempX = pX + (int)vX;
 		int tempY = pY + (int)vY;
 
+		// check out of bounds
 		if(0 <= tempX && tempX < width)
 			pX = tempX;
 		if(0 <= tempY && tempY < height)

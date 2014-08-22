@@ -1,21 +1,37 @@
 public class GameState
 {
-	private GameCharacter mainCharacter;
+	private GameCharacter[] characters;
+	private GameCharacterBullets[] characterBullets;
+	private GameCharacterDrawings[] characterDrawings;
 
+	private final int numberOfPlayers = 1;
 
 	public GameState()
 	{
-		mainCharacter = new GameCharacter(10);
-		mainCharacter.setPositionX(100);
-		mainCharacter.setPositionY(100);
-		mainCharacter.setIsVisible(true);
+		characters = new GameCharacter[numberOfPlayers];
+		characterBullets = new GameCharacterBullets[numberOfPlayers];
+		characterDrawings = new GameCharacterDrawings[numberOfPlayers];
+
+		// create character
+		characters[0] = new GameCharacter(10);
+		characters[0].setPositionX(100);
+		characters[0].setPositionY(100);
+		characters[0].setIsVisible(true);
+
+		// create characters' drawings
+		characterDrawings[0] = new GameCharacterDrawings(20);
+
+		// create characters' bullets
+		characterBullets[0] = new GameCharacterBullets();
 	}
 
 
 	/**
 	 * get the main character of the game state
 	 */
-	public GameCharacter getMainCharacter() { return mainCharacter; }
+	public GameCharacter getCharacterAtIndex(int i) { return characters[i]; }
+	public GameCharacterDrawings getCharacterDrawingsAtIndex(int i) { return characterDrawings[i]; }
+	public GameCharacterBullets getCharacterBulletsAtIndex(int i) { return characterBullets[i]; }
 
 
 	/**
@@ -23,7 +39,13 @@ public class GameState
 	 */
 	public void update()
 	{
-		mainCharacter.update();
+		for(GameCharacter c : characters)
+			c.update();
+		for(GameCharacterBullets b : characterBullets)
+			b.update();
+		for(GameCharacterDrawings d : characterDrawings)
+			d.update();
+
 	}
 
 	/**
@@ -31,6 +53,11 @@ public class GameState
 	 */
 	public void display()
 	{
-		mainCharacter.display();
+		for(GameCharacter c : characters)
+			c.display();
+		for(GameCharacterBullets b : characterBullets)
+			b.display();
+		for(GameCharacterDrawings d : characterDrawings)
+			d.display();
 	}
 }
