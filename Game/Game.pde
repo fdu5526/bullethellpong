@@ -28,16 +28,16 @@ void keyPressed()
 	switch(key)
 	{
 		case 'a':
-			gameState.getMainCharacter().setVelocityX(-30);
+			gameState.getMainCharacter().startMovingLeft();
 			break;
 		case 'd':
-			gameState.getMainCharacter().setVelocityX(30);
+			gameState.getMainCharacter().startMovingRight();
 			break;
 		case 'w':
-			gameState.getMainCharacter().setVelocityY(-30);
+			gameState.getMainCharacter().startMovingUp();
 			break;
 		case 's':
-			gameState.getMainCharacter().setVelocityY(30);
+			gameState.getMainCharacter().startMovingDown();
 			break;
 		default:
 			break;	
@@ -50,20 +50,16 @@ void keyReleased()
 	switch(key)
 	{
 		case 'a':
-			if(gameState.getMainCharacter().getVelocityX() == -30)
-				gameState.getMainCharacter().setVelocityX(0);
+			gameState.getMainCharacter().stopMovingLeft();
 			break;
 		case 'd':
-			if(gameState.getMainCharacter().getVelocityX() == 30)
-				gameState.getMainCharacter().setVelocityX(0);
+			gameState.getMainCharacter().stopMovingRight();
 			break;
 		case 'w':
-			if(gameState.getMainCharacter().getVelocityY() == -30)
-					gameState.getMainCharacter().setVelocityY(0);
+			gameState.getMainCharacter().stopMovingUp();
 			break;
 		case 's':
-			if(gameState.getMainCharacter().getVelocityY() == 30)
-					gameState.getMainCharacter().setVelocityY(0);
+			gameState.getMainCharacter().stopMovingDown();
 			break;
 		default:
 			break;
