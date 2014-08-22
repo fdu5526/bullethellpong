@@ -1,24 +1,23 @@
 public class GameCharacter extends GameObject
 {
 
-	private float maxVelocity;
+	private float maxSpeed;			// the speed of this character
 
-	public GameCharacter(float maxVelocity)
+	public GameCharacter(float maxSpeed)
 	{
 		super();
-
-		this.maxVelocity = maxVelocity;
+		this.maxSpeed = maxSpeed;
 	}
 
 	// moves the character, wrapper for GameObject set and get methods
-	public void startMovingLeft() { this.setVelocityX(-maxVelocity); }
-	public void startMovingRight() { this.setVelocityX(maxVelocity); }
-	public void startMovingUp() { this.setVelocityY(-maxVelocity); }
-	public void startMovingDown() { this.setVelocityY(maxVelocity); }
-	public void stopMovingLeft() { if(this.getVelocityX() == -maxVelocity) this.setVelocityX(0f); }
-	public void stopMovingRight() { if(this.getVelocityX() == maxVelocity) this.setVelocityX(0f); }
-	public void stopMovingUp() { if(this.getVelocityY() == -maxVelocity) this.setVelocityY(0f); }
-	public void stopMovingDown() { if(this.getVelocityY() == maxVelocity) this.setVelocityY(0f); }
+	public void startMovingLeft() { this.setVelocityX(-maxSpeed); }
+	public void startMovingRight() { this.setVelocityX(maxSpeed); }
+	public void startMovingUp() { this.setVelocityY(-maxSpeed); }
+	public void startMovingDown() { this.setVelocityY(maxSpeed); }
+	public void stopMovingLeft() { if(this.getVelocityX() == -maxSpeed) this.setVelocityX(0f); }
+	public void stopMovingRight() { if(this.getVelocityX() == maxSpeed) this.setVelocityX(0f); }
+	public void stopMovingUp() { if(this.getVelocityY() == -maxSpeed) this.setVelocityY(0f); }
+	public void stopMovingDown() { if(this.getVelocityY() == maxSpeed) this.setVelocityY(0f); }
 
 
 	/**
