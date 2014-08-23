@@ -1,11 +1,10 @@
 public class GameDrawing extends GameObject
 {	
-	private int lifespan;
+	private int lifespan;		// how many frames this drawing has left
 
 	public GameDrawing()
 	{
 		super();
-
 		lifespan = 0;
 	}
 
@@ -25,17 +24,26 @@ public class GameDrawing extends GameObject
 		lifespan = 0;
 	}
 
+	/**
+	 * check if the drawing is currently active
+	 */
+	public boolean isActive()
+	{
+		return (lifespan != 0);
+	}
+
+	/**
+	 * decreaes the lifespan
+	 */
 	public void update()
 	{
 		if(lifespan > 0)
 			lifespan--;
 	}
 
-	public boolean isActive()
-	{
-		return (lifespan != 0);
-	}
-
+	/**
+	 * display the drawing
+	 */
 	public void display()
 	{
 		if(!this.isActive())

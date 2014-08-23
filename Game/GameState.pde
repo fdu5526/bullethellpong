@@ -13,16 +13,21 @@ public class GameState
 		characterDrawings = new GameCharacterDrawings[numberOfPlayers];
 
 		// create character
-		characters[0] = new GameCharacter(10);
-		characters[0].setPositionX(100);
-		characters[0].setPositionY(100);
-		characters[0].setIsVisible(true);
+		for(int i = 0; i < characters.length; i++)
+		{
+			characters[i] = new GameCharacter(10);
+			characters[i].setPositionX(100);
+			characters[i].setPositionY(100);
+			characters[i].setIsVisible(true);
+		}
 
 		// create characters' drawings
-		characterDrawings[0] = new GameCharacterDrawings(20);
+		for(int i = 0; i < characterDrawings.length; i++)
+			characterDrawings[i] = new GameCharacterDrawings(20);
 
 		// create characters' bullets
-		characterBullets[0] = new GameCharacterBullets();
+		for(int i = 0; i < characterBullets.length; i++)
+			characterBullets[i] = new GameCharacterBullets();
 	}
 
 

@@ -10,11 +10,6 @@ public class GameCharacterBullets
 			bullets[i] = new GameBullet();
 	}
 
-	public void addBullet()
-	{
-		
-	}
-
 	// update all the bullets
 	public void update()
 	{

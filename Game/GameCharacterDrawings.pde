@@ -1,13 +1,13 @@
 public class GameCharacterDrawings
 {
-	private GameDrawing[] drawings;
-	private int maxLifeSpan;
-	private int drawingCounter;
+	private GameDrawing[] drawings;		// array of drawings
+	private int maxLifeSpan;					// how long a drawing last for this character
+	private int drawingIndex;				// keep track most recently drawn drawing
 
 	public GameCharacterDrawings(int maxLifeSpan)
 	{
 		this.maxLifeSpan = maxLifeSpan;
-		drawingCounter = 0;
+		drawingIndex = 0;
 
 		// initialize all the drawings
 		drawings = new GameDrawing[500];
@@ -15,31 +15,40 @@ public class GameCharacterDrawings
 			drawings[i] = new GameDrawing();
 	}
 
-	private void increaseDrawingCounter()
+	/**
+	 * move to the next drawing index
+	 */
+	private void increasedrawingIndex()
 	{
 		// move to next drawing
-		drawingCounter++;
-		if(drawingCounter >= drawings.length)
-			drawingCounter = 0;
+		drawingIndex++;
+		if(drawingIndex >= drawings.length)
+			drawingIndex = 0;
 	}
 
+	/**
+	 * add an active drawing
+	 */
 	public void addDrawing(int x, int y)
 	{
 		// reset lifespan, set to new location
-		drawings[drawingCounter].setPositionX(x);
-		drawings[drawingCounter].setPositionY(y);
-		drawings[drawingCounter].resetLifespan(maxLifeSpan);
+		drawings[drawingIndex].setPositionX(x);
+		drawings[drawingIndex].setPositionY(y);
+		drawings[drawingIndex].resetLifespan(maxLifeSpan);
 
-		increaseDrawingCounter();
+		increasedrawingIndex();
 	}
 
+	/**
+	 * add an inactive drawing, this way we can differentiate between strokes
+	 */
 	public void addBreak()
 	{
-		drawings[drawingCounter].setPositionX(0);
-		drawings[drawingCounter].setPositionY(0);
-		drawings[drawingCounter].removeLifespan();
+		drawings[drawingIndex].setPositionX(0);
+		drawings[drawingIndex].setPositionY(0);
+		drawings[drawingIndex].removeLifespan();
 
-		increaseDrawingCounter();
+		increasedrawingIndex();
 	}
 
 	// update all the drawings
@@ -52,10 +61,12 @@ public class GameCharacterDrawings
 	// display all the drawings
 	public void display()
 	{
+		// loop through drawings
 		for(int i = 0; i < drawings.length; i++)
 		{
 			drawings[i].display();
 			
+			// draw a line between pairs of active drawings
 			if(i > 0 && drawings[i].isActive() && 
 				 drawings[i - 1].isActive())
 				line(drawings[i].getPositionX(), drawings[i].getPositionY(),
