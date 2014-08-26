@@ -5,21 +5,21 @@
  */
 public abstract class GameObject
 {
-	protected int pX, pY;					// position X & Y
+	protected float pX, pY;				// position X & Y
 	protected float vX, vY; 			// velocity X & Y
 	protected float aX, aY;				// acceleration X & Y
 	protected boolean isVisible;	// whether to draw current object
 
 	public GameObject()
 	{
-		pX = pY = 0;
+		pX = pY = 0f;
 		vX = vY = aX = aY = 0f;
 		isVisible = false;
 	}
 
 	// set functions
-	public void setPositionX(int x) { pX = x; }
-	public void setPositionY(int y) { pY = y; }
+	public void setPositionX(float x) { pX = x; }
+	public void setPositionY(float y) { pY = y; }
 	public void setVelocityX(float x) { vX = x; }
 	public void setVelocityY(float y) { vY = y; }
 	public void setAccelerationX(float x) { aX = x; }
@@ -27,8 +27,8 @@ public abstract class GameObject
 	public void setIsVisible(boolean b) { isVisible = b; }
 
 	// get functions
-	public int getPositionX() { return pX; }
-	public int getPositionY() { return pY; }
+	public float getPositionX() { return pX; }
+	public float getPositionY() { return pY; }
 	public float getVelocityX() { return vX; }
 	public float getVelocityY() { return vY; }
 	public float getAccelerationX() { return aX; }

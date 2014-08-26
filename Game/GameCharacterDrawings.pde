@@ -2,7 +2,7 @@ public class GameCharacterDrawings
 {
 	private GameDrawing[] drawings;		// array of drawings
 	private int maxLifeSpan;					// how long a drawing last for this character
-	private int drawingIndex;				// keep track most recently drawn drawing
+	private int drawingIndex;					// keep track most recently drawn drawing
 
 	public GameCharacterDrawings(int maxLifeSpan)
 	{
@@ -18,7 +18,7 @@ public class GameCharacterDrawings
 	/**
 	 * move to the next drawing index
 	 */
-	private void increasedrawingIndex()
+	private void increaseDrawingIndex()
 	{
 		// move to next drawing
 		drawingIndex++;
@@ -36,7 +36,7 @@ public class GameCharacterDrawings
 		drawings[drawingIndex].setPositionY(y);
 		drawings[drawingIndex].resetLifespan(maxLifeSpan);
 
-		increasedrawingIndex();
+		increaseDrawingIndex();
 	}
 
 	/**
@@ -48,7 +48,7 @@ public class GameCharacterDrawings
 		drawings[drawingIndex].setPositionY(0);
 		drawings[drawingIndex].removeLifespan();
 
-		increasedrawingIndex();
+		increaseDrawingIndex();
 	}
 
 	// update all the drawings
@@ -64,14 +64,19 @@ public class GameCharacterDrawings
 		// loop through drawings
 		for(int i = 0; i < drawings.length; i++)
 		{
-			drawings[i].display();
+			//drawings[i].display();
 			
 			// draw a line between pairs of active drawings
 			if(i > 0 && drawings[i].isActive() && 
 				 drawings[i - 1].isActive())
+			{
+				strokeWeight(drawings[i].getLifespan());
+
 				line(drawings[i].getPositionX(), drawings[i].getPositionY(),
 						 drawings[i - 1].getPositionX(), drawings[i - 1].getPositionY());
-
+			}
 		}
+
+		strokeWeight(1);
 	}
 }

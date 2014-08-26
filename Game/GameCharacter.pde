@@ -26,13 +26,13 @@ public class GameCharacter extends GameObject
 	public void update()
 	{
 		// uses euler integration
-		int tempX = pX + (int)vX;
-		int tempY = pY + (int)vY;
+		float tempX = pX + vX;
+		float tempY = pY + vY;
 
 		// check out of bounds
-		if(0 <= tempX && tempX < width)
+		if(0f <= tempX && tempX < width)
 			pX = tempX;
-		if(0 <= tempY && tempY < height)
+		if(0f <= tempY && tempY < height)
 			pY = tempY;
 	}
 
@@ -45,6 +45,7 @@ public class GameCharacter extends GameObject
 			return;
 
 		stroke(0);
+		fill(255);
 		ellipse(pX, pY, 30, 30);
 	}
 }

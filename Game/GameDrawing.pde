@@ -24,6 +24,11 @@ public class GameDrawing extends GameObject
 		lifespan = 0;
 	}
 
+	public int getLifespan()
+	{
+		return lifespan;
+	}
+
 	/**
 	 * check if the drawing is currently active
 	 */
@@ -37,8 +42,8 @@ public class GameDrawing extends GameObject
 	 */
 	public void update()
 	{
-		if(lifespan > 0)
-			lifespan--;
+		if(lifespan - 1 >= 0)
+			lifespan -= 1;
 	}
 
 	/**

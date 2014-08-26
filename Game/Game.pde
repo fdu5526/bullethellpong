@@ -1,5 +1,3 @@
-
-
 GameState gameState;
 
 /**
@@ -9,6 +7,9 @@ void setup()
 {
 	size(1600, 900);
   frameRate(24);
+
+  stroke(0);
+  fill(0);
 
   imageMode(CENTER);
   noStroke();
