@@ -55,7 +55,13 @@ public class GameCharacterBullets
 		increaseBulletIndex();
 	}
 
-	
+	/**
+	 * return the bullets so we can iterate over them
+	 */
+	public GameBullet[] getBullets()
+	{
+		return bullets;
+	}
 
 	// update all the bullets
 	public void update()

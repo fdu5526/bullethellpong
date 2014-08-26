@@ -2,11 +2,13 @@ public class GameCharacter extends GameObject
 {
 
 	private float maxSpeed;			// the speed of this character
+	private float radius;				// the size of the character
 
-	public GameCharacter(float maxSpeed)
+	public GameCharacter(float maxSpeed, float radius)
 	{
 		super();
 		this.maxSpeed = maxSpeed;
+		this.radius = radius;
 	}
 
 	// moves the character, wrapper for GameObject set and get methods
@@ -19,6 +21,10 @@ public class GameCharacter extends GameObject
 	public void stopMovingUp() { if(this.getVelocityY() == -maxSpeed) this.setVelocityY(0f); }
 	public void stopMovingDown() { if(this.getVelocityY() == maxSpeed) this.setVelocityY(0f); }
 
+	/**
+	 * get the radius of the character
+	 */
+	public float getRadius() { return radius; }
 
 	/**
 	 * updates position of the character, prevents moving out of bounds
@@ -46,6 +52,6 @@ public class GameCharacter extends GameObject
 
 		stroke(0);
 		fill(255);
-		ellipse(pX, pY, 30, 30);
+		ellipse(pX, pY, radius, radius);
 	}
 }

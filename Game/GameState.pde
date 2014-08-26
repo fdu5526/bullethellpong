@@ -17,7 +17,7 @@ public class GameState
 		// create character
 		for(int i = 0; i < characters.length; i++)
 		{
-			characters[i] = new GameCharacter(10);
+			characters[i] = new GameCharacter(10, 30);
 			characters[i].setPositionX(100);
 			characters[i].setPositionY(100);
 			characters[i].setIsVisible(true);
@@ -46,6 +46,37 @@ public class GameState
 
 
 	/**
+	 * check collision of all objects
+	 */
+	private void checkCollision()
+	{
+		// check collision for character
+		for(int c = 0; c < characters.length; c++)
+		{
+			// loop through bullets
+			for(int cb = 0; cb < characterBullets.length; cb++)
+			{
+				// it is this character's bullets, we skip it
+				if(c == cb)
+					continue;
+
+				GameBullet[] bullets = characterBullets[cb].getBullets();
+				for(GameBullet bullet : bullets)
+				{
+					GameCharacter character = characters[c];
+					float dx = character.getPositionX() - bullet.getPositionX();
+					float dy = character.getPositionY() - bullet.getPositionY();
+					
+					// there is a collision
+					if(sqrt(dx * dx + dy * dy) < character.getRadius())
+					{
+						// TODO do things if there is collision
+					}
+			}
+		}
+	}
+
+	/**
 	 * updates all objects in the state of the game
 	 */
 	public void update()
@@ -59,6 +90,7 @@ public class GameState
 		for(GameCharacterTurrets t : characterTurrets)
 			t.update();
 
+		checkCollision();
 	}
 
 	/**
