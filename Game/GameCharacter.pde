@@ -35,7 +35,7 @@ public class GameCharacter extends GameObject
 		if(0f <= tempY && tempY < height)
 			pY = tempY;
 	}
-
+	
 	/**
 	 * draw the character
 	 */

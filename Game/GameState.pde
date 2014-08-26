@@ -1,11 +1,11 @@
 public class GameState
 {
-	private GameCharacter[] characters;
-	private GameCharacterBullets[] characterBullets;
-	private GameCharacterDrawings[] characterDrawings;
-	private GameCharacterTurrets[] characterTurrets;
+	private GameCharacter[] characters;									// characters
+	private GameCharacterBullets[] characterBullets;		// bullets of each character
+	private GameCharacterDrawings[] characterDrawings;	// drawings of each character
+	private GameCharacterTurrets[] characterTurrets;		// turrets of each character
 
-	private final int numberOfPlayers = 1;
+	private final int numberOfPlayers = 1;							// number of players in the game
 
 	public GameState()
 	{
@@ -33,7 +33,7 @@ public class GameState
 
 		// create characters' turrets
 		for(int i = 0; i < characterTurrets.length; i++)
-			characterTurrets[i] = new GameCharacterTurrets(characterBullets[i]);
+			characterTurrets[i] = new GameCharacterTurrets(characterBullets[i], 3);
 	}
 
 
@@ -58,6 +58,7 @@ public class GameState
 			d.update();
 		for(GameCharacterTurrets t : characterTurrets)
 			t.update();
+
 	}
 
 	/**

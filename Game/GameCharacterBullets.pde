@@ -29,7 +29,7 @@ public class GameCharacterBullets
 	/**
 	 * add an active bullet
 	 */
-	public void addBullet(int px, int py, float vx, float vy, float ax, float ay)
+	public void addBullet(float px, float py, float vx, float vy, float ax, float ay)
 	{
 		// reset lifespan, set to new location
 		bullets[bulletIndex].setPositionX(px);
@@ -55,7 +55,7 @@ public class GameCharacterBullets
 		increaseBulletIndex();
 	}
 
-
+	
 
 	// update all the bullets
 	public void update()

@@ -13,14 +13,14 @@ public class GameTurret extends GameObject
 	{
 		if(currentTime() - previousTimestamp > 500L)
 		{
-			characterBullets.addBullet(500, 0, 0, 0.5, 0, 0.05);
-			characterBullets.addBullet(500, 0, -0.3, -0.4, -0.03, 0.04);
-			characterBullets.addBullet(500, 0, 0.3, -0.4, 0.03, 0.04);
+			characterBullets.addBullet(pX, pY, 0, 0.5, 0, 0.05);
+			characterBullets.addBullet(pX, pY, -0.3, -0.4, -0.03, 0.04);
+			characterBullets.addBullet(pX, pY, 0.3, -0.4, 0.03, 0.04);
 			previousTimestamp = currentTime();
 		}
 	}
 
-
+	
 	public void display()
 	{
 		if(!isVisible)
