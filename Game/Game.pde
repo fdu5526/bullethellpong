@@ -18,7 +18,7 @@ void setup()
  */
 void draw()
 {
-	background(200);
+	background(50);
 	gameState.update();
 	gameState.display();
 }

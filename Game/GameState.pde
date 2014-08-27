@@ -19,8 +19,8 @@ public class GameState
 		for(int i = 0; i < characters.length; i++)
 		{
 			characters[i] = new GameCharacter(10, 10);
-			characters[i].setPositionX(100 * (i+1));
-			characters[i].setPositionY(300 * (i+1));
+			characters[i].setPositionX(width/2);
+			characters[i].setPositionY(height - (height/5 + (3*height/5)*i));
 			characters[i].setIsVisible(true);
 		}
 
@@ -42,12 +42,14 @@ public class GameState
 
 		// create characters' turrets
 		for(int i = 0; i < characterTurrets.length; i++)
-			characterTurrets[i] = new GameCharacterTurrets(characterBullets[i], 3);
+			characterTurrets[i] = new GameCharacterTurrets(characterBullets[i], 3, 0, 0, 0, false);
 
 
 
 		// TODO delete me
+		characterTurrets[1] = new GameCharacterTurrets(characterBullets[1], 3, 213, 49, 49, false);
 		characterTurrets[1].hardcodeTurret();
+		characterTurrets[0] = new GameCharacterTurrets(characterBullets[0], 3, 49, 49, 213, true);
 	}
 
 
@@ -210,6 +212,9 @@ public class GameState
 	public void display()
 	{
 		
+		for(GameCharacterTurrets t : characterTurrets)
+			t.display();
+
 		for(GameCharacterDrawings d : characterDrawings)
 			d.display();
 
@@ -218,9 +223,6 @@ public class GameState
 
 		for(GameCharacterBullets b : characterBullets)
 			b.display();
-		
-		for(GameCharacterTurrets t : characterTurrets)
-			t.display();
 
 	}
 }

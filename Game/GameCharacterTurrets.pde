@@ -3,11 +3,12 @@ public class GameCharacterTurrets
 	private GameTurret[] turrets;
 	private int turretIndex;
 
-	public GameCharacterTurrets(GameCharacterBullets characterBullets, int numberOfTurrets)
+	public GameCharacterTurrets(GameCharacterBullets characterBullets, int numberOfTurrets, 
+															int r, int g, int b, boolean isAimingUp)
 	{
 		turrets = new GameTurret[numberOfTurrets];
 		for(int i = 0; i < turrets.length; i++)
-			turrets[i] = new GameTurret(characterBullets);
+			turrets[i] = new GameTurret(characterBullets, r, g, b, isAimingUp);
 
 		turretIndex = 0;
 	}
