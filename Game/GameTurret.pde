@@ -5,12 +5,16 @@ public class GameTurret extends GameObject
 
 	public GameTurret(GameCharacterBullets characterBullets)
 	{
+		super();
 		previousTimestamp = currentTime();
 		this.characterBullets = characterBullets;
 	}
 
 	public void update()
 	{
+		if(!isVisible)
+			return;
+		
 		if(currentTime() - previousTimestamp > 500L)
 		{
 			characterBullets.addBullet(pX, pY, 0, 0.5, 0, 0.05);

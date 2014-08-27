@@ -51,6 +51,15 @@ public class GameCharacterDrawings
 		increaseDrawingIndex();
 	}
 
+
+	/**
+	 * return the drawings so we can iterate over them
+	 */
+	public GameDrawing[] getDrawings()
+	{
+		return drawings;
+	}
+
 	// update all the drawings
 	public void update()
 	{
@@ -67,8 +76,8 @@ public class GameCharacterDrawings
 			//drawings[i].display();
 			
 			// draw a line between pairs of active drawings
-			if(i > 0 && drawings[i].isActive() && 
-				 drawings[i - 1].isActive())
+			if(i > 0 && drawings[i].getIsVisible() && 
+				 drawings[i - 1].getIsVisible())
 			{
 				strokeWeight(drawings[i].getLifespan());
 

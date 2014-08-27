@@ -7,9 +7,13 @@ public class GameCharacterTurrets
 		turrets = new GameTurret[numberOfTurrets];
 		for(int i = 0; i < turrets.length; i++)
 			turrets[i] = new GameTurret(characterBullets);
+			
+	}
 
 
-		//TODO delete me
+	//TODO delete me
+	public void hardcodeTurret()
+	{	
 		turrets[0].setPositionX(500);
 		turrets[0].setPositionY(0);
 		turrets[0].setIsVisible(true);

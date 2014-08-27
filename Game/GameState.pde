@@ -5,7 +5,7 @@ public class GameState
 	private GameCharacterDrawings[] characterDrawings;	// drawings of each character
 	private GameCharacterTurrets[] characterTurrets;		// turrets of each character
 
-	private final int numberOfPlayers = 1;							// number of players in the game
+	private final int numberOfPlayers = 2;							// number of players in the game
 
 	public GameState()
 	{
@@ -18,8 +18,8 @@ public class GameState
 		for(int i = 0; i < characters.length; i++)
 		{
 			characters[i] = new GameCharacter(10, 30);
-			characters[i].setPositionX(100);
-			characters[i].setPositionY(100);
+			characters[i].setPositionX(100 * (i+1));
+			characters[i].setPositionY(100 * (i+1));
 			characters[i].setIsVisible(true);
 		}
 
@@ -31,9 +31,21 @@ public class GameState
 		for(int i = 0; i < characterBullets.length; i++)
 			characterBullets[i] = new GameCharacterBullets();
 
+
+		// TODO delete me
+		characterBullets[0] = new GameCharacterBullets(49, 213, 49);
+		characterBullets[1] = new GameCharacterBullets(213, 49, 49);
+
+
+
 		// create characters' turrets
 		for(int i = 0; i < characterTurrets.length; i++)
 			characterTurrets[i] = new GameCharacterTurrets(characterBullets[i], 3);
+
+
+
+		// TODO delete me
+		characterTurrets[1].hardcodeTurret();
 	}
 
 
@@ -45,24 +57,27 @@ public class GameState
 	public GameCharacterBullets getCharacterBulletsAtIndex(int i) { return characterBullets[i]; }
 
 
-	/**
-	 * check collision of all objects
-	 */
-	private void checkCollision()
+
+	private void checkBulletCollideWithCharacter()
 	{
-		// check collision for character
+				// check bullet collision with character
 		for(int c = 0; c < characters.length; c++)
 		{
-			// loop through bullets
+			// loop through each character's bullets
 			for(int cb = 0; cb < characterBullets.length; cb++)
 			{
 				// it is this character's bullets, we skip it
 				if(c == cb)
 					continue;
 
+				// loop through bullets
 				GameBullet[] bullets = characterBullets[cb].getBullets();
 				for(GameBullet bullet : bullets)
 				{
+					// skip if bullet is not active
+					if(!bullet.getIsVisible())
+						continue;
+
 					GameCharacter character = characters[c];
 					float dx = character.getPositionX() - bullet.getPositionX();
 					float dy = character.getPositionY() - bullet.getPositionY();
@@ -71,9 +86,70 @@ public class GameState
 					if(sqrt(dx * dx + dy * dy) < character.getRadius())
 					{
 						// TODO do things if there is collision
+						println(currentTime() + " player " + c + "   hit!!!!");
+						
 					}
+				}
 			}
 		}
+	}
+
+	private void checkBulletCollideWithDrawing()
+	{
+		// check bullet collision with drawings
+		for(int d = 0; d < characterDrawings.length; d++)
+		{
+			GameDrawing[] ds = characterDrawings[d].getDrawings();
+			for(GameDrawing drawing : ds)
+			{
+				// skip if drawing is not active
+					if(!drawing.getIsVisible())
+						continue;
+
+				// loop through each character's bullets
+				for(int cb = 0; cb < characterBullets.length; cb++)
+				{
+					// it is this character's bullets, we skip it
+					if(d == cb)
+						continue;
+
+					// loop through bullets
+					GameBullet[] bullets = characterBullets[cb].getBullets();
+					for(GameBullet bullet : bullets)
+					{
+						// skip if bullet is not active
+						if(!bullet.getIsVisible())
+							continue;
+
+						float dx = drawing.getPositionX() - bullet.getPositionX();
+						float dy = drawing.getPositionY() - bullet.getPositionY();
+						
+						// there is a collision, deflect bullet in some fashion
+						if(sqrt(dx * dx + dy * dy) < drawing.getLifespan())
+						{
+							bullet.setIsVisible(false);
+							characterBullets[d].addBullet(bullet.getPositionX(),
+																						bullet.getPositionY(),
+																						-bullet.getVelocityX() * 2.0,
+																						-bullet.getVelocityY() * 2.0,
+																						-bullet.getAccelerationX() * 2.0,
+																						-bullet.getAccelerationY() * 2.0);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * check collision of all objects
+	 */
+	private void checkCollision()
+	{
+
+		checkBulletCollideWithCharacter();
+		checkBulletCollideWithDrawing();
+		
 	}
 
 	/**
@@ -100,11 +176,12 @@ public class GameState
 	{
 		for(GameCharacter c : characters)
 			c.display();
-		for(GameCharacterBullets b : characterBullets)
-			b.display();
 		for(GameCharacterDrawings d : characterDrawings)
 			d.display();
+		for(GameCharacterBullets b : characterBullets)
+			b.display();
 		for(GameCharacterTurrets t : characterTurrets)
 			t.display();
+
 	}
 }

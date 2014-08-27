@@ -1,12 +1,26 @@
 public class GameBullet extends GameObject
 {
 
-	PImage bulletImage;
+	private PImage bulletImage;
+	private int r, g, b;
 
 	public GameBullet()
 	{
 		super();
 		bulletImage = null;
+
+		r = 213;
+		g = 49;
+		b = 49;
+	}
+
+	public GameBullet(int r, int g, int b)
+	{
+		super();
+		bulletImage = null;
+		this.r = r;
+		this.g = g;
+		this.b = b;
 	}
 
 	public void display()
@@ -14,7 +28,7 @@ public class GameBullet extends GameObject
 		if(!isVisible)
 			return;
 
-		fill(213, 49, 49);
+		fill(r, g, b);
 		ellipse(pX, pY, 10, 10);
 	}
 }

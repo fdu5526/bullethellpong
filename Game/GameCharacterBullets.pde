@@ -15,6 +15,18 @@ public class GameCharacterBullets
 		}
 	}
 
+	public GameCharacterBullets(int r, int g, int b)
+	{
+		bulletIndex = 0;
+
+		// initialize all the bullets
+		bullets = new GameBullet[1000];
+		for(int i = 0; i < bullets.length; i++)
+		{
+			bullets[i] = new GameBullet(r, g, b);
+		}
+	}
+
 	/**
 	 * move to the next bullet index
 	 */

@@ -32,7 +32,7 @@ public class GameDrawing extends GameObject
 	/**
 	 * check if the drawing is currently active
 	 */
-	public boolean isActive()
+	public boolean getIsVisible()
 	{
 		return (lifespan != 0);
 	}
@@ -51,7 +51,7 @@ public class GameDrawing extends GameObject
 	 */
 	public void display()
 	{
-		if(!this.isActive())
+		if(!this.getIsVisible())
 			return;
 		
 
