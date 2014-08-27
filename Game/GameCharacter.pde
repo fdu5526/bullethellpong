@@ -1,6 +1,5 @@
 public class GameCharacter extends GameObject
 {
-
 	private float maxSpeed;			// the speed of this character
 	private float radius;				// the size of the character
 

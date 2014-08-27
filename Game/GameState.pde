@@ -20,7 +20,7 @@ public class GameState
 		{
 			characters[i] = new GameCharacter(10, 10);
 			characters[i].setPositionX(100 * (i+1));
-			characters[i].setPositionY(100 * (i+1));
+			characters[i].setPositionY(300 * (i+1));
 			characters[i].setIsVisible(true);
 		}
 

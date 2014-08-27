@@ -106,7 +106,20 @@ public class GameCharacterDrawings
 				 drawings[i - 1].getIsVisible())
 			{
 				strokeWeight(drawings[i].getLifespan());
+				line(drawings[i].getPositionX(), drawings[i].getPositionY(),
+						 drawings[i - 1].getPositionX(), drawings[i - 1].getPositionY());
+			}
+		}
 
+		stroke(r * 4, g * 4, b * 4);
+		// loop through drawings
+		for(int i = 0; i < drawings.length; i++)
+		{			
+			// draw a line between pairs of active drawings
+			if(i > 0 && drawings[i].getIsVisible() && 
+				 drawings[i - 1].getIsVisible())
+			{
+				strokeWeight(drawings[i].getLifespan() / 2);
 				line(drawings[i].getPositionX(), drawings[i].getPositionY(),
 						 drawings[i - 1].getPositionX(), drawings[i - 1].getPositionY());
 			}
