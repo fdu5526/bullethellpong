@@ -1,13 +1,15 @@
 public class GameCharacterTurrets
 {
 	private GameTurret[] turrets;
+	private int turretIndex;
 
 	public GameCharacterTurrets(GameCharacterBullets characterBullets, int numberOfTurrets)
 	{
 		turrets = new GameTurret[numberOfTurrets];
 		for(int i = 0; i < turrets.length; i++)
 			turrets[i] = new GameTurret(characterBullets);
-			
+
+		turretIndex = 0;
 	}
 
 
@@ -23,6 +25,18 @@ public class GameCharacterTurrets
 		turrets[2].setPositionX(250);
 		turrets[2].setPositionY(200);
 		turrets[2].setIsVisible(true);
+	}
+
+
+	public void placeTurret(float x, float y)
+	{
+		turrets[turretIndex].setPositionX(x);
+		turrets[turretIndex].setPositionY(y);
+		turrets[turretIndex].setIsVisible(true);
+
+		turretIndex++;
+		if(turretIndex >= turrets.length)
+			turretIndex = 0;
 	}
 
 	public void update()

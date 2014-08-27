@@ -43,7 +43,7 @@ public class GameDrawing extends GameObject
 	public void update()
 	{
 		if(lifespan >= 0f)
-			lifespan -= 0.5;
+			lifespan -= 0.5f;
 	}
 
 	/**

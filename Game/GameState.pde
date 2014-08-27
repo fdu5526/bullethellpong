@@ -26,7 +26,7 @@ public class GameState
 
 		// create characters' drawings
 		for(int i = 0; i < characterDrawings.length; i++)
-			characterDrawings[i] = new GameCharacterDrawings(20f);
+			characterDrawings[i] = new GameCharacterDrawings(40f);
 
 		// create characters' bullets
 		for(int i = 0; i < characterBullets.length; i++)
@@ -57,6 +57,7 @@ public class GameState
 	public GameCharacter getCharacterAtIndex(int i) { return characters[i]; }
 	public GameCharacterDrawings getCharacterDrawingsAtIndex(int i) { return characterDrawings[i]; }
 	public GameCharacterBullets getCharacterBulletsAtIndex(int i) { return characterBullets[i]; }
+	public GameCharacterTurrets getCharacterTurretsAtIndex(int i) { return characterTurrets[i]; }
 
 
 	/**

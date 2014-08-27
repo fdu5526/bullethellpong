@@ -5,7 +5,7 @@ GameState gameState;
  */
 void setup()
 {
-	size(1600, 900);
+	size(1024, 1080);
   frameRate(24);
 
   imageMode(CENTER);

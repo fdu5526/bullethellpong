@@ -105,13 +105,13 @@ public class GameCharacterDrawings
 			if(i > 0 && drawings[i].getIsVisible() && 
 				 drawings[i - 1].getIsVisible())
 			{
-				strokeWeight(drawings[i].getLifespan());
+				strokeWeight(Math.min(30, drawings[i].getLifespan()) + random(5, 10));
 				line(drawings[i].getPositionX(), drawings[i].getPositionY(),
 						 drawings[i - 1].getPositionX(), drawings[i - 1].getPositionY());
 			}
 		}
 
-		stroke(r * 4, g * 4, b * 4);
+		stroke(r * 3, g * 3, b * 3);
 		// loop through drawings
 		for(int i = 0; i < drawings.length; i++)
 		{			
@@ -119,7 +119,7 @@ public class GameCharacterDrawings
 			if(i > 0 && drawings[i].getIsVisible() && 
 				 drawings[i - 1].getIsVisible())
 			{
-				strokeWeight(drawings[i].getLifespan() / 2);
+				strokeWeight(Math.min(30, drawings[i].getLifespan()) / 2 + random(2, 5));
 				line(drawings[i].getPositionX(), drawings[i].getPositionY(),
 						 drawings[i - 1].getPositionX(), drawings[i - 1].getPositionY());
 			}

@@ -30,6 +30,10 @@ void keyPressed()
 			case 'z':
 				gameState.getCharacterDrawingsAtIndex(0).setIsDrawing(true);
 				break;
+			case 'x':
+				gameState.getCharacterTurretsAtIndex(0).placeTurret(gameState.getCharacterAtIndex(0).getPositionX(),
+																													  gameState.getCharacterAtIndex(0).getPositionY());
+				break;
 			default:
 				break;
 		}
