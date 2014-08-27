@@ -3,23 +3,36 @@
  */
 void keyPressed()
 {
-	switch(key)
+	if(key == CODED)
 	{
-		case 'a':
-			gameState.getCharacterAtIndex(0).startMovingLeft();
-			break;
-		case 'd':
-			gameState.getCharacterAtIndex(0).startMovingRight();
-			break;
-		case 'w':
-			gameState.getCharacterAtIndex(0).startMovingUp();
-			break;
-		case 's':
-			gameState.getCharacterAtIndex(0).startMovingDown();
-			break;
-		default:
-			break;	
-
+		switch(keyCode)
+		{
+			case LEFT:
+				gameState.getCharacterAtIndex(0).startMovingLeft();
+				break;
+			case RIGHT:
+				gameState.getCharacterAtIndex(0).startMovingRight();
+				break;
+			case UP:
+				gameState.getCharacterAtIndex(0).startMovingUp();
+				break;
+			case DOWN:
+				gameState.getCharacterAtIndex(0).startMovingDown();
+				break;
+			default:
+				break;
+		}
+	}
+	else
+	{
+		switch(key)
+		{
+			case 'z':
+				gameState.getCharacterDrawingsAtIndex(0).setIsDrawing(true);
+				break;
+			default:
+				break;
+		}
 	}
 }
 
@@ -29,39 +42,35 @@ void keyPressed()
  */
 void keyReleased()
 {
-	switch(key)
+	if(key == CODED)
 	{
-		case 'a':
-			gameState.getCharacterAtIndex(0).stopMovingLeft();
-			break;
-		case 'd':
-			gameState.getCharacterAtIndex(0).stopMovingRight();
-			break;
-		case 'w':
-			gameState.getCharacterAtIndex(0).stopMovingUp();
-			break;
-		case 's':
-			gameState.getCharacterAtIndex(0).stopMovingDown();
-			break;
-		default:
-			break;
+		switch(keyCode)
+		{
+			case LEFT:
+				gameState.getCharacterAtIndex(0).stopMovingLeft();
+				break;
+			case RIGHT:
+				gameState.getCharacterAtIndex(0).stopMovingRight();
+				break;
+			case UP:
+				gameState.getCharacterAtIndex(0).stopMovingUp();
+				break;
+			case DOWN:
+				gameState.getCharacterAtIndex(0).stopMovingDown();
+				break;
+			default:
+				break;
+		}
+	}
+	else
+	{
+		switch(key)
+		{
+			case 'z':
+				gameState.getCharacterDrawingsAtIndex(0).setIsDrawing(false);
+				break;
+			default:
+				break;
+		}
 	}
 }
-
-
-/**
- * mouse dragging handler
- */
-public void mouseDragged()
-{
-	gameState.getCharacterDrawingsAtIndex(0).addDrawing(mouseX, mouseY);
-}
-
-/**
- * mouse released handler
- */
-public void mouseReleased()
-{
-	gameState.getCharacterDrawingsAtIndex(0).addBreak();
-}
-

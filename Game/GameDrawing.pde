@@ -1,17 +1,17 @@
 public class GameDrawing extends GameObject
 {	
-	private int lifespan;		// how many frames this drawing has left
+	private float lifespan;		// how many frames this drawing has left
 
 	public GameDrawing()
 	{
 		super();
-		lifespan = 0;
+		lifespan = 0f;
 	}
 
 	/**
 	 * when this is just drawn
 	 */
-	public void resetLifespan(int maxLifeSpan)
+	public void resetLifespan(float maxLifeSpan)
 	{
 		lifespan = maxLifeSpan;
 	}
@@ -21,10 +21,10 @@ public class GameDrawing extends GameObject
 	 */
 	public void removeLifespan()
 	{
-		lifespan = 0;
+		lifespan = 0f;
 	}
 
-	public int getLifespan()
+	public float getLifespan()
 	{
 		return lifespan;
 	}
@@ -34,7 +34,7 @@ public class GameDrawing extends GameObject
 	 */
 	public boolean getIsVisible()
 	{
-		return (lifespan != 0);
+		return (lifespan >= 0f);
 	}
 
 	/**
@@ -42,8 +42,8 @@ public class GameDrawing extends GameObject
 	 */
 	public void update()
 	{
-		if(lifespan - 1 >= 0)
-			lifespan -= 1;
+		if(lifespan >= 0f)
+			lifespan -= 0.5;
 	}
 
 	/**

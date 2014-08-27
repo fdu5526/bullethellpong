@@ -25,7 +25,7 @@ public class GameState
 
 		// create characters' drawings
 		for(int i = 0; i < characterDrawings.length; i++)
-			characterDrawings[i] = new GameCharacterDrawings(20);
+			characterDrawings[i] = new GameCharacterDrawings(20f);
 
 		// create characters' bullets
 		for(int i = 0; i < characterBullets.length; i++)
@@ -134,6 +134,18 @@ public class GameState
 																						-bullet.getVelocityY() * 2.0,
 																						-bullet.getAccelerationX() * 2.0,
 																						-bullet.getAccelerationY() * 2.0);
+							characterBullets[d].addBullet(bullet.getPositionX(),
+																						bullet.getPositionY(),
+																						bullet.getVelocityX() * 1.5 - 5,
+																						-bullet.getVelocityY() * 1.5,
+																						bullet.getAccelerationX() * 1.5,
+																						-bullet.getAccelerationY() * 1.5);
+							characterBullets[d].addBullet(bullet.getPositionX(),
+																						bullet.getPositionY(),
+																						-bullet.getVelocityX() * 1.5 + 5,
+																						-bullet.getVelocityY() * 1.5,
+																						-bullet.getAccelerationX() * 1.5,
+																						-bullet.getAccelerationY() * 1.5);
 						}
 					}
 				}
@@ -159,12 +171,26 @@ public class GameState
 	{
 		for(GameCharacter c : characters)
 			c.update();
+		
 		for(GameCharacterBullets b : characterBullets)
 			b.update();
-		for(GameCharacterDrawings d : characterDrawings)
-			d.update();
+		
+		for(int d = 0; d < characterDrawings.length; d++)
+		{
+			GameCharacterDrawings gcd = characterDrawings[d];
+			
+			if(gcd.getIsDrawing())
+				gcd.addDrawing(characters[d].getPositionX(),
+											 characters[d].getPositionY());
+			else
+				gcd.addBreak();
+
+			gcd.update();
+		}
+
 		for(GameCharacterTurrets t : characterTurrets)
 			t.update();
+
 
 		checkCollision();
 	}
@@ -174,12 +200,16 @@ public class GameState
 	 */
 	public void display()
 	{
-		for(GameCharacter c : characters)
-			c.display();
+		
 		for(GameCharacterDrawings d : characterDrawings)
 			d.display();
+
+		for(GameCharacter c : characters)
+			c.display();
+
 		for(GameCharacterBullets b : characterBullets)
 			b.display();
+		
 		for(GameCharacterTurrets t : characterTurrets)
 			t.display();
 

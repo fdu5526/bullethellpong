@@ -1,10 +1,11 @@
 public class GameCharacterDrawings
 {
 	private GameDrawing[] drawings;		// array of drawings
-	private int maxLifeSpan;					// how long a drawing last for this character
+	private float maxLifeSpan;				// how long a drawing last for this character
 	private int drawingIndex;					// keep track most recently drawn drawing
+	private boolean isDrawing;				// whether we are currently drawing
 
-	public GameCharacterDrawings(int maxLifeSpan)
+	public GameCharacterDrawings(float maxLifeSpan)
 	{
 		this.maxLifeSpan = maxLifeSpan;
 		drawingIndex = 0;
@@ -13,6 +14,8 @@ public class GameCharacterDrawings
 		drawings = new GameDrawing[500];
 		for(int i = 0; i < drawings.length; i++)
 			drawings[i] = new GameDrawing();
+
+		isDrawing = false;
 	}
 
 	/**
@@ -29,7 +32,7 @@ public class GameCharacterDrawings
 	/**
 	 * add an active drawing
 	 */
-	public void addDrawing(int x, int y)
+	public void addDrawing(float x, float y)
 	{
 		// reset lifespan, set to new location
 		drawings[drawingIndex].setPositionX(x);
@@ -51,6 +54,8 @@ public class GameCharacterDrawings
 		increaseDrawingIndex();
 	}
 
+	public void setIsDrawing(boolean b) { isDrawing = b; }
+	public boolean getIsDrawing() { return isDrawing; }
 
 	/**
 	 * return the drawings so we can iterate over them
