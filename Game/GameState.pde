@@ -67,6 +67,8 @@ public class GameState
 				// check bullet collision with character
 		for(int c = 0; c < characters.length; c++)
 		{
+			GameCharacter character = characters[c];
+
 			// loop through each character's bullets
 			for(int cb = 0; cb < characterBullets.length; cb++)
 			{
@@ -82,17 +84,12 @@ public class GameState
 					if(!bullet.getIsVisible())
 						continue;
 
-					GameCharacter character = characters[c];
-					float dx = character.getPositionX() - bullet.getPositionX();
-					float dy = character.getPositionY() - bullet.getPositionY();
-					
-					// there is a collision
-					if(sqrt(dx * dx + dy * dy) < (character.getRadius() + bullet.getRadius()) / 2)
-					{
-						// TODO do things if there is collision
+					// collision
+					// TODO kill character here
+					if(collisionCircleWithCircle(character.getPositionX(), character.getPositionY(), character.getRadius(),
+																			 bullet.getPositionX(), bullet.getPositionY(), bullet.getRadius()))
 						println(currentTime() + " player " + c + "   hit!!!!");
-						
-					}
+					
 				}
 			}
 		}
@@ -107,6 +104,7 @@ public class GameState
 		for(int d = 0; d < characterDrawings.length; d++)
 		{
 			GameDrawing[] ds = characterDrawings[d].getDrawings();
+			GameDrawing prevDrawing = null;
 			for(GameDrawing drawing : ds)
 			{
 				// skip if drawing is not active
@@ -127,13 +125,15 @@ public class GameState
 						// skip if bullet is not active
 						if(!bullet.getIsVisible())
 							continue;
-
-						float dx = drawing.getPositionX() - bullet.getPositionX();
-						float dy = drawing.getPositionY() - bullet.getPositionY();
 						
 						// there is a collision, deflect bullet in some fashion
-						if(sqrt(dx * dx + dy * dy) < drawing.getLifespan())
+						if(prevDrawing != null && 
+							 collisionCircleWithLine(bullet.getPositionX(), bullet.getPositionY(), bullet.getRadius(),
+																			 drawing.getPositionX(), drawing.getPositionY(),
+																			 prevDrawing.getPositionX(), prevDrawing.getPositionY(),
+																			 drawing.getLifespan()))
 						{
+							// TODO make this more legit
 							bullet.setIsVisible(false);
 							characterBullets[d].addBullet(bullet.getPositionX(),
 																						bullet.getPositionY(),
@@ -156,6 +156,8 @@ public class GameState
 						}
 					}
 				}
+
+				prevDrawing = drawing;
 			}
 		}
 	}
@@ -165,10 +167,8 @@ public class GameState
 	 */
 	private void checkCollision()
 	{
-
 		checkBulletCollideWithCharacter();
 		checkBulletCollideWithDrawing();
-		
 	}
 
 	/**
