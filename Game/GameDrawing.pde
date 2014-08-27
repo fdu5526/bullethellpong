@@ -51,11 +51,5 @@ public class GameDrawing extends GameObject
 	 */
 	public void display()
 	{
-		if(!this.getIsVisible())
-			return;
-		
-
-		fill(0);
-		ellipse(pX, pY, lifespan, lifespan);
 	}
 }

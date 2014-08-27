@@ -4,6 +4,8 @@ public class GameCharacterDrawings
 	private float maxLifeSpan;				// how long a drawing last for this character
 	private int drawingIndex;					// keep track most recently drawn drawing
 	private boolean isDrawing;				// whether we are currently drawing
+	private int r, g, b;							// color of the drawing
+
 
 	public GameCharacterDrawings(float maxLifeSpan)
 	{
@@ -16,6 +18,25 @@ public class GameCharacterDrawings
 			drawings[i] = new GameDrawing();
 
 		isDrawing = false;
+
+		r = g = b = 0;
+	}
+
+	public GameCharacterDrawings(float maxLifeSpan, int r, int g, int b)
+	{
+		this.maxLifeSpan = maxLifeSpan;
+		drawingIndex = 0;
+
+		// initialize all the drawings
+		drawings = new GameDrawing[500];
+		for(int i = 0; i < drawings.length; i++)
+			drawings[i] = new GameDrawing();
+
+		isDrawing = false;
+
+		this.r = r;
+		this.g = g;
+		this.b = b;
 	}
 
 	/**
@@ -75,11 +96,11 @@ public class GameCharacterDrawings
 	// display all the drawings
 	public void display()
 	{
+		stroke(r,g,b);
+
 		// loop through drawings
 		for(int i = 0; i < drawings.length; i++)
-		{
-			//drawings[i].display();
-			
+		{			
 			// draw a line between pairs of active drawings
 			if(i > 0 && drawings[i].getIsVisible() && 
 				 drawings[i - 1].getIsVisible())

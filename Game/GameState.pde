@@ -15,9 +15,10 @@ public class GameState
 		characterTurrets = new GameCharacterTurrets[numberOfPlayers];
 
 		// create character
+		// TODO put legit positions onto characters
 		for(int i = 0; i < characters.length; i++)
 		{
-			characters[i] = new GameCharacter(10, 30);
+			characters[i] = new GameCharacter(10, 10);
 			characters[i].setPositionX(100 * (i+1));
 			characters[i].setPositionY(100 * (i+1));
 			characters[i].setIsVisible(true);
@@ -33,7 +34,8 @@ public class GameState
 
 
 		// TODO delete me
-		characterBullets[0] = new GameCharacterBullets(49, 213, 49);
+		characterDrawings[0] = new GameCharacterDrawings(20f, 49, 49, 213);
+		characterBullets[0] = new GameCharacterBullets(49, 49, 213);
 		characterBullets[1] = new GameCharacterBullets(213, 49, 49);
 
 
@@ -57,7 +59,9 @@ public class GameState
 	public GameCharacterBullets getCharacterBulletsAtIndex(int i) { return characterBullets[i]; }
 
 
-
+	/**
+	 * loop through drawings and bullets, kill characters accordingly
+	 */
 	private void checkBulletCollideWithCharacter()
 	{
 				// check bullet collision with character
@@ -83,7 +87,7 @@ public class GameState
 					float dy = character.getPositionY() - bullet.getPositionY();
 					
 					// there is a collision
-					if(sqrt(dx * dx + dy * dy) < character.getRadius())
+					if(sqrt(dx * dx + dy * dy) < (character.getRadius() + bullet.getRadius()) / 2)
 					{
 						// TODO do things if there is collision
 						println(currentTime() + " player " + c + "   hit!!!!");
@@ -94,6 +98,9 @@ public class GameState
 		}
 	}
 
+	/**
+	 * loop through drawings and bullets, deflect bullets accordingly
+	 */
 	private void checkBulletCollideWithDrawing()
 	{
 		// check bullet collision with drawings
@@ -169,12 +176,16 @@ public class GameState
 	 */
 	public void update()
 	{
+		// check for collisions in the beginning
+		checkCollision();
+		
 		for(GameCharacter c : characters)
 			c.update();
 		
 		for(GameCharacterBullets b : characterBullets)
 			b.update();
 		
+		// if a character is drawing, draw their drawings
 		for(int d = 0; d < characterDrawings.length; d++)
 		{
 			GameCharacterDrawings gcd = characterDrawings[d];
@@ -190,9 +201,6 @@ public class GameState
 
 		for(GameCharacterTurrets t : characterTurrets)
 			t.update();
-
-
-		checkCollision();
 	}
 
 	/**

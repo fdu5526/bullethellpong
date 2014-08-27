@@ -11,7 +11,7 @@ public class GameCharacterBullets
 		bullets = new GameBullet[1000];
 		for(int i = 0; i < bullets.length; i++)
 		{
-			bullets[i] = new GameBullet();
+			bullets[i] = new GameBullet(0, 0, 0, 20);
 		}
 	}
 
@@ -23,7 +23,7 @@ public class GameCharacterBullets
 		bullets = new GameBullet[1000];
 		for(int i = 0; i < bullets.length; i++)
 		{
-			bullets[i] = new GameBullet(r, g, b);
+			bullets[i] = new GameBullet(r, g, b, 30);
 		}
 	}
 

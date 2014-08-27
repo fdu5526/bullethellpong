@@ -1,34 +1,26 @@
 public class GameBullet extends GameObject
 {
+	private int r, g, b, radius;
 
-	private PImage bulletImage;
-	private int r, g, b;
-
-	public GameBullet()
+	public GameBullet(int r, int g, int b, int radius)
 	{
 		super();
-		bulletImage = null;
-
-		r = 213;
-		g = 49;
-		b = 49;
-	}
-
-	public GameBullet(int r, int g, int b)
-	{
-		super();
-		bulletImage = null;
 		this.r = r;
 		this.g = g;
 		this.b = b;
+		this.radius = radius;
 	}
+
+	public int getRadius() { return radius; }
 
 	public void display()
 	{
 		if(!isVisible)
 			return;
 
-		fill(r, g, b);
-		ellipse(pX, pY, 10, 10);
+		stroke(r,g,b);
+		strokeWeight(5);
+		fill(255);
+		ellipse(pX, pY, radius, radius);
 	}
 }
