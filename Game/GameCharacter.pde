@@ -2,12 +2,16 @@ public class GameCharacter extends GameObject
 {
 	private float maxSpeed;			// the speed of this character
 	private float radius;				// the size of the character
+	private PImage sprite;			// sprite of character
+	private int numberOfLives;	// number of lives of this character
 
-	public GameCharacter(float maxSpeed, float radius)
+	public GameCharacter(float maxSpeed, float radius, PImage sprite)
 	{
 		super();
 		this.maxSpeed = maxSpeed;
 		this.radius = radius;
+		this.sprite = sprite;
+		numberOfLives = 5;
 	}
 
 	// moves the character, wrapper for GameObject set and get methods
@@ -19,6 +23,9 @@ public class GameCharacter extends GameObject
 	public void stopMovingRight() { if(this.getVelocityX() == maxSpeed) this.setVelocityX(0f); }
 	public void stopMovingUp() { if(this.getVelocityY() == -maxSpeed) this.setVelocityY(0f); }
 	public void stopMovingDown() { if(this.getVelocityY() == maxSpeed) this.setVelocityY(0f); }
+
+	public void setNumberOfLives(int l) { numberOfLives = l; }
+	public int getNumberOfLives() { return numberOfLives; }
 
 	/**
 	 * get the radius of the character
@@ -51,6 +58,8 @@ public class GameCharacter extends GameObject
 
 		stroke(0);
 		fill(255);
+		image(sprite, pX, pY);
 		ellipse(pX, pY, radius, radius);
+
 	}
 }

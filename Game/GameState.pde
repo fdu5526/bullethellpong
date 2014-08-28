@@ -18,11 +18,18 @@ public class GameState
 		// TODO put legit positions onto characters
 		for(int i = 0; i < characters.length; i++)
 		{
-			characters[i] = new GameCharacter(10, 10);
+			if(i == 0)
+				characters[i] = new GameCharacter(10, 10, loadImage("resources/blue.png"));
+			else
+				characters[i] = new GameCharacter(10, 10, loadImage("resources/red.png"));
 			characters[i].setPositionX(width/2);
 			characters[i].setPositionY(height - (height/5 + (3*height/5)*i));
 			characters[i].setIsVisible(true);
+
+
+
 		}
+
 
 		// create characters' drawings
 		for(int i = 0; i < characterDrawings.length; i++)
@@ -35,6 +42,7 @@ public class GameState
 
 		// TODO delete me
 		characterDrawings[0] = new GameCharacterDrawings(20f, 49, 49, 213);
+		characterDrawings[1] = new GameCharacterDrawings(20f, 213, 49, 49);
 		characterBullets[0] = new GameCharacterBullets(49, 49, 213);
 		characterBullets[1] = new GameCharacterBullets(213, 49, 49);
 
@@ -48,7 +56,6 @@ public class GameState
 
 		// TODO delete me
 		characterTurrets[1] = new GameCharacterTurrets(characterBullets[1], 3, 213, 49, 49, false);
-		characterTurrets[1].hardcodeTurret();
 		characterTurrets[0] = new GameCharacterTurrets(characterBullets[0], 3, 49, 49, 213, true);
 	}
 
@@ -91,8 +98,8 @@ public class GameState
 					// TODO kill character here
 					if(collisionCircleWithCircle(character.getPositionX(), character.getPositionY(), character.getRadius(),
 																			 bullet.getPositionX(), bullet.getPositionY(), bullet.getRadius()))
-						println(currentTime() + " player " + c + "   hit!!!!");
-					
+						//println(currentTime() + " player " + c + "   hit!!!!");
+						character.setNumberOfLives(character.getNumberOfLives() - 1);
 				}
 			}
 		}
