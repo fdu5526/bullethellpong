@@ -79,6 +79,34 @@ public class GameState
 	public GameBullets getBulletsAtIndex(int i) { return bullets[i]; }
 	public GameTurret getTurretAtIndex(int i) { return turrets[i]; }
 
+	public void characterAtIndexInteractWithTurret(int i)
+	{
+		GameCharacter character = characters[i];
+		if(character.hasTurret())
+		{
+			character.placeTurret();
+		}
+		else
+		{
+			// loop through turrets
+			for(int t = 0; t < turrets.length; t++)
+			{
+				GameTurret turret = turrets[t];
+
+				if(!turret.getIsVisible())
+					continue;
+
+				
+				if(collisionCircleWithCircle(character.getPositionX(), character.getPositionY(), character.getRadius(),
+																		 turret.getPositionX(), turret.getPositionY(), turret.getRadius()*2))
+				{
+					character.getTurret(turret);
+					break;
+				}
+
+			}
+		}
+	}
 
 	/**
 	 * loop through drawings and bullets, kill characters accordingly

@@ -24,6 +24,13 @@ public class GameTurret extends GameObject
 		this.setPositionX(x);
 		this.setPositionY(y);
 		this.setIsVisible(true);
+		lastTimeshot = currentTime() + cooldown/2;
+	}
+
+
+	public int getRadius()
+	{
+		return 50;
 	}
 
 	/**

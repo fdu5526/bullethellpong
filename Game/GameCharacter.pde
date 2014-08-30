@@ -6,6 +6,7 @@ public class GameCharacter extends GameObject
 	private int numberOfLives;					// number of lives of this character
 	private int inkLevel, maxInkLevel;	// level of ink
 	private boolean isFacingUp;					// whether this character is facing up or not
+	private GameTurret turret;					// the turret if the player is holding onto a turret
 
 	public GameCharacter(float maxSpeed, float radius, boolean isFacingUp, PImage sprite)
 	{
@@ -14,6 +15,7 @@ public class GameCharacter extends GameObject
 		this.radius = radius;
 		this.sprite = sprite;
 		this.isFacingUp = isFacingUp;
+		this.turret = null;
 		numberOfLives = 5;
 	}
 
@@ -29,7 +31,7 @@ public class GameCharacter extends GameObject
 
 	public void setNumberOfLives(int l) { numberOfLives = l; }
 	public int getNumberOfLives() { return numberOfLives; }
-
+	public boolean hasTurret(){return turret != null; }
 	/**
 	 * get the radius of the character
 	 */
@@ -37,6 +39,23 @@ public class GameCharacter extends GameObject
 
 	public void setInkLevel(int level) { inkLevel = Math.min(maxInkLevel, level); }
 	public int getInkLevel() { return inkLevel; }
+
+	public void getTurret(GameTurret turret) 
+	{ 
+		if(this.turret == null)
+		{
+			this.turret = turret;
+			this.turret.setIsVisible(false);
+		}
+	}
+	public void placeTurret()
+	{
+		if(this.turret != null)
+		{
+			this.turret.placeTurret(this.getPositionX(), this.getPositionY());
+			this.turret = null;
+		}
+	}
 
 
 	/**
@@ -63,6 +82,15 @@ public class GameCharacter extends GameObject
 	{
 		if(!isVisible)
 			return;
+
+		if(this.hasTurret())
+		{
+			strokeWeight(2);
+			stroke(49, 213, 49);
+			noFill();
+			ellipse(pX, pY, turret.getRadius(), turret.getRadius());
+		}
+
 
 		stroke(0);
 		fill(255);

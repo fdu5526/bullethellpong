@@ -18,9 +18,9 @@ public class GameBullet extends GameObject
 		if(!isVisible)
 			return;
 
-		stroke(r,g,b, 200);
+		stroke(r,g,b, 175);
 		strokeWeight(4);
-		fill(r*4,g*4,b*4, 200);
+		fill(r*4,g*4,b*4, 175);
 		ellipse(pX, pY, radius, radius);
 	}
 }
