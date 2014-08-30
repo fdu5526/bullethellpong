@@ -1,16 +1,19 @@
 public class GameCharacter extends GameObject
 {
-	private float maxSpeed;			// the speed of this character
-	private float radius;				// the size of the character
-	private PImage sprite;			// sprite of character
-	private int numberOfLives;	// number of lives of this character
+	private float maxSpeed;							// the speed of this character
+	private float radius;								// the size of the character
+	private PImage sprite;							// sprite of character
+	private int numberOfLives;					// number of lives of this character
+	private int inkLevel, maxInkLevel;	// level of ink
+	private boolean isFacingUp;					// whether this character is facing up or not
 
-	public GameCharacter(float maxSpeed, float radius, PImage sprite)
+	public GameCharacter(float maxSpeed, float radius, boolean isFacingUp, PImage sprite)
 	{
 		super();
 		this.maxSpeed = maxSpeed;
 		this.radius = radius;
 		this.sprite = sprite;
+		this.isFacingUp = isFacingUp;
 		numberOfLives = 5;
 	}
 
@@ -32,6 +35,10 @@ public class GameCharacter extends GameObject
 	 */
 	public float getRadius() { return radius; }
 
+	public void setInkLevel(int level) { inkLevel = Math.min(maxInkLevel, level); }
+	public int getInkLevel() { return inkLevel; }
+
+
 	/**
 	 * updates position of the character, prevents moving out of bounds
 	 */
@@ -40,12 +47,13 @@ public class GameCharacter extends GameObject
 		// uses euler integration
 		float tempX = pX + vX;
 		float tempY = pY + vY;
-
+		
 		// check out of bounds
-		if(0f <= tempX && tempX < width)
+		if(30f <= tempX && tempX < width - 30f)
 			pX = tempX;
-		if(0f <= tempY && tempY < height)
+		if(30f <= tempY && tempY < height - 30f)
 			pY = tempY;
+		
 	}
 	
 	/**

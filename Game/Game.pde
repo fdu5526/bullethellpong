@@ -1,11 +1,14 @@
 GameState gameState;
 
+
+final float maxVelocity = 30;
+
 /**
  * initial setup method
  */
 void setup()
 {
-	size(1024, 1080);
+	size(1600, 960);
   frameRate(24);
 
   PFont f = createFont("Arial",16,true);

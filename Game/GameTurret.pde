@@ -1,19 +1,29 @@
 public class GameTurret extends GameObject
 {
 	private long lastTimeshot;													// the last time the turret shot a bullet
-	private GameCharacterBullets characterBullets;			// the bullets that this turret shoots
+	private GameBullets bullets;												// the bullets that this turret shoots
 	int r, g, b;																				// color of turret
-	private boolean isAimingUp;													// whether we are currently aiming up
+	int cooldown;																				// how long between a wave of bullet
 
-	public GameTurret(GameCharacterBullets characterBullets, int r, int g, int b, boolean isAimingUp)
+	public GameTurret(GameBullets bullets, int r, int g, int b, int cooldown)
 	{
 		super();
 		lastTimeshot = currentTime();
-		this.characterBullets = characterBullets;
-		this.isAimingUp = isAimingUp;
+		this.bullets = bullets;
 		this.r = r;
 		this.g = g;
 		this.b = b;
+		this.cooldown = cooldown;
+	}
+
+	/**
+	 * places turret at location
+	 */
+	public void placeTurret(float x, float y)
+	{
+		this.setPositionX(x);
+		this.setPositionY(y);
+		this.setIsVisible(true);
 	}
 
 	/**
@@ -23,16 +33,13 @@ public class GameTurret extends GameObject
 	{
 		if(!isVisible)
 			return;
-		
-		float dy = 1.0;
-		if(isAimingUp)
-			dy = -1.0;
 
-		if(currentTime() - lastTimeshot > 500L)
+		if(currentTime() - lastTimeshot > cooldown)
 		{
-			characterBullets.addBullet(pX, pY, 0, dy*0.5, 0, dy*0.05);
-			characterBullets.addBullet(pX, pY, -0.3, dy*0.4, -0.03, dy*0.04);
-			characterBullets.addBullet(pX, pY, 0.3, dy*0.4, 0.03, dy*0.04);
+			float x = cos(currentTime()/cooldown);
+			float y = sin(currentTime()/cooldown);
+			bullets.addBullet(pX, pY, x, y, 0, 0);
+			bullets.addBullet(pX, pY, -x, -y, 0, 0);
 			lastTimeshot = currentTime();
 		}
 	}

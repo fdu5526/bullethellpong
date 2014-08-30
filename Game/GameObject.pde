@@ -20,8 +20,8 @@ public abstract class GameObject
 	// set functions
 	public void setPositionX(float x) { pX = x; }
 	public void setPositionY(float y) { pY = y; }
-	public void setVelocityX(float x) { vX = x; }
-	public void setVelocityY(float y) { vY = y; }
+	public void setVelocityX(float x) { vX = Math.min(maxVelocity, x); }
+	public void setVelocityY(float y) { vY = Math.min(maxVelocity, y); }
 	public void setAccelerationX(float x) { aX = x; }
 	public void setAccelerationY(float y) { aY = y; }
 	public void setIsVisible(boolean b) { isVisible = b; }
@@ -41,8 +41,8 @@ public abstract class GameObject
 	public void update()
 	{
 		// uses euler integration
-		vX += aX;
-		vY += aY;
+		vX = Math.min(maxVelocity, vX + aX);
+		vY = Math.min(maxVelocity, vY + aY);
 		pX += vX;
 		pY += vY;
 	}

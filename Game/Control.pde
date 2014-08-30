@@ -31,8 +31,10 @@ void keyPressed()
 				gameState.getCharacterDrawingsAtIndex(0).setIsDrawing(true);
 				break;
 			case 'x':
-				gameState.getCharacterTurretsAtIndex(0).placeTurret(gameState.getCharacterAtIndex(0).getPositionX(),
-																													  gameState.getCharacterAtIndex(0).getPositionY());
+			/*
+				gameState.getTurretAtIndex(0).placeTurret(gameState.getCharacterAtIndex(0).getPositionX(),
+																								  gameState.getCharacterAtIndex(0).getPositionY());
+	  	*/
 				break;
 
 			// TODO delete me
@@ -52,9 +54,11 @@ void keyPressed()
 				gameState.getCharacterDrawingsAtIndex(1).setIsDrawing(true);
 				break;
 			case 'k':
-				gameState.getCharacterTurretsAtIndex(1).placeTurret(gameState.getCharacterAtIndex(1).getPositionX(),
-																													  gameState.getCharacterAtIndex(1).getPositionY());
+			/*
+				gameState.getTurretAtIndex(1).placeTurret(gameState.getCharacterAtIndex(1).getPositionX(),
+																							    gameState.getCharacterAtIndex(1).getPositionY());
 				break;
+			*/
 			// TODO delete me
 
 

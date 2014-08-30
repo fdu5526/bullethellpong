@@ -1,62 +1,73 @@
 public class GameState
 {
 	private GameCharacter[] characters;									// characters
-	private GameCharacterBullets[] characterBullets;		// bullets of each character
+	private GameBullets[] bullets;											// bullets of each type
 	private GameCharacterDrawings[] characterDrawings;	// drawings of each character
-	private GameCharacterTurrets[] characterTurrets;		// turrets of each character
+	private GameTurret[] turrets;												// turrets
 
 	private final int numberOfPlayers = 2;							// number of players in the game
+	private final int numberOfTurrets = 3;							// number of turrets in the game
 
 	public GameState()
 	{
 		characters = new GameCharacter[numberOfPlayers];
-		characterBullets = new GameCharacterBullets[numberOfPlayers];
 		characterDrawings = new GameCharacterDrawings[numberOfPlayers];
-		characterTurrets = new GameCharacterTurrets[numberOfPlayers];
+		bullets = new GameBullets[numberOfTurrets + numberOfPlayers];
+		turrets = new GameTurret[numberOfTurrets];
 
 		// create character
 		// TODO put legit positions onto characters
 		for(int i = 0; i < characters.length; i++)
 		{
 			if(i == 0)
-				characters[i] = new GameCharacter(10, 10, loadImage("resources/blue.png"));
+				characters[i] = new GameCharacter(10, 10, true, loadImage("resources/blue.png"));
 			else
-				characters[i] = new GameCharacter(10, 10, loadImage("resources/red.png"));
+				characters[i] = new GameCharacter(10, 10, false, loadImage("resources/red.png"));
 			characters[i].setPositionX(width/2);
 			characters[i].setPositionY(height - (height/5 + (3*height/5)*i));
 			characters[i].setIsVisible(true);
-
-
-
 		}
-
 
 		// create characters' drawings
 		for(int i = 0; i < characterDrawings.length; i++)
 			characterDrawings[i] = new GameCharacterDrawings(40f);
 
 		// create characters' bullets
-		for(int i = 0; i < characterBullets.length; i++)
-			characterBullets[i] = new GameCharacterBullets();
+		for(int i = 0; i < bullets.length; i++)
+			bullets[i] = new GameBullets(255,255,255, 25);
 
 
 		// TODO delete me
 		characterDrawings[0] = new GameCharacterDrawings(20f, 49, 49, 213);
 		characterDrawings[1] = new GameCharacterDrawings(20f, 213, 49, 49);
-		characterBullets[0] = new GameCharacterBullets(49, 49, 213);
-		characterBullets[1] = new GameCharacterBullets(213, 49, 49);
+		bullets[0] = new GameBullets(49, 213, 49, 25);
+		bullets[1] = new GameBullets(49, 213, 49, 20);
+		bullets[2] = new GameBullets(49, 213, 49, 35);
+		bullets[3] = new GameBullets(49, 49, 213, 25);
+		bullets[4] = new GameBullets(213, 49, 49, 25);
 
 
 
 		// create characters' turrets
-		for(int i = 0; i < characterTurrets.length; i++)
-			characterTurrets[i] = new GameCharacterTurrets(characterBullets[i], 3, 0, 0, 0, false);
+		for(int i = 0; i < turrets.length; i++)
+			turrets[i] = new GameTurret(bullets[i], 255, 255, 255, 750);
 
 
 
 		// TODO delete me
-		characterTurrets[1] = new GameCharacterTurrets(characterBullets[1], 3, 213, 49, 49, false);
-		characterTurrets[0] = new GameCharacterTurrets(characterBullets[0], 3, 49, 49, 213, true);
+		turrets[0] = new GameTurret(bullets[0], 49, 213, 49, 750);
+		turrets[1] = new GameTurret(bullets[1], 49, 213, 49, 500);
+		turrets[2] = new GameTurret(bullets[2], 49, 213, 49, 1000);
+		setTurretsStartPosition();
+		
+		
+	}
+
+	public void setTurretsStartPosition()
+	{
+		turrets[0].placeTurret(300, 500);
+		turrets[1].placeTurret(700, 200);
+		turrets[2].placeTurret(1100, 700);
 	}
 
 
@@ -65,8 +76,8 @@ public class GameState
 	 */
 	public GameCharacter getCharacterAtIndex(int i) { return characters[i]; }
 	public GameCharacterDrawings getCharacterDrawingsAtIndex(int i) { return characterDrawings[i]; }
-	public GameCharacterBullets getCharacterBulletsAtIndex(int i) { return characterBullets[i]; }
-	public GameCharacterTurrets getCharacterTurretsAtIndex(int i) { return characterTurrets[i]; }
+	public GameBullets getBulletsAtIndex(int i) { return bullets[i]; }
+	public GameTurret getTurretAtIndex(int i) { return turrets[i]; }
 
 
 	/**
@@ -79,16 +90,16 @@ public class GameState
 		{
 			GameCharacter character = characters[c];
 
-			// loop through each character's bullets
-			for(int cb = 0; cb < characterBullets.length; cb++)
+			// loop through each type of bullets
+			for(int b = 0; b < bullets.length; b++)
 			{
-				// it is this character's bullets, we skip it
-				if(c == cb)
+				// skip if bullet is of this character's
+				if(b == c + numberOfTurrets)
 					continue;
 
 				// loop through bullets
-				GameBullet[] bullets = characterBullets[cb].getBullets();
-				for(GameBullet bullet : bullets)
+				GameBullet[] bl = bullets[b].getBullets();
+				for(GameBullet bullet : bl)
 				{
 					// skip if bullet is not active
 					if(!bullet.getIsVisible())
@@ -121,16 +132,16 @@ public class GameState
 					if(!drawing.getIsVisible())
 						continue;
 
-				// loop through each character's bullets
-				for(int cb = 0; cb < characterBullets.length; cb++)
+				// loop through each type of bullets
+				for(int b = 0; b < bullets.length; b++)
 				{
-					// it is this character's bullets, we skip it
-					if(d == cb)
+					// cannot reflect your own bullet
+					if(b == d + numberOfTurrets)
 						continue;
-
+					
 					// loop through bullets
-					GameBullet[] bullets = characterBullets[cb].getBullets();
-					for(GameBullet bullet : bullets)
+					GameBullet[] bl = bullets[b].getBullets();
+					for(GameBullet bullet : bl)
 					{
 						// skip if bullet is not active
 						if(!bullet.getIsVisible())
@@ -145,24 +156,24 @@ public class GameState
 						{
 							// TODO make this more legit
 							bullet.setIsVisible(false);
-							characterBullets[d].addBullet(bullet.getPositionX(),
+							bullets[d + numberOfTurrets].addBullet(bullet.getPositionX(),
 																						bullet.getPositionY(),
-																						-bullet.getVelocityX() * 2.0,
-																						-bullet.getVelocityY() * 2.0,
-																						-bullet.getAccelerationX() * 2.0,
-																						-bullet.getAccelerationY() * 2.0);
-							characterBullets[d].addBullet(bullet.getPositionX(),
+																						bullet.getVelocityX() * -5.0,
+																						bullet.getVelocityY() * -5.0,
+																						bullet.getAccelerationX() * -5.0,
+																						bullet.getAccelerationY() * -5.0);
+							bullets[d + numberOfTurrets].addBullet(bullet.getPositionX(),
 																						bullet.getPositionY(),
-																						bullet.getVelocityX() * 1.5 - 5,
-																						-bullet.getVelocityY() * 1.5,
-																						bullet.getAccelerationX() * 1.5,
-																						-bullet.getAccelerationY() * 1.5);
-							characterBullets[d].addBullet(bullet.getPositionX(),
+																						bullet.getVelocityX() * -3.5,
+																						bullet.getVelocityY() * -3.5,
+																						bullet.getAccelerationX() * -3.5,
+																						bullet.getAccelerationY() * -3.5);
+							bullets[d + numberOfTurrets].addBullet(bullet.getPositionX(),
 																						bullet.getPositionY(),
-																						-bullet.getVelocityX() * 1.5 + 5,
-																						-bullet.getVelocityY() * 1.5,
-																						-bullet.getAccelerationX() * 1.5,
-																						-bullet.getAccelerationY() * 1.5);
+																						bullet.getVelocityX() * 3.5,
+																						bullet.getVelocityY() * -3.5,
+																						bullet.getAccelerationX() * 3.5,
+																						bullet.getAccelerationY() * -3.5);
 						}
 					}
 				}
@@ -192,7 +203,7 @@ public class GameState
 		for(GameCharacter c : characters)
 			c.update();
 		
-		for(GameCharacterBullets b : characterBullets)
+		for(GameBullets b : bullets)
 			b.update();
 		
 		// if a character is drawing, draw their drawings
@@ -209,7 +220,7 @@ public class GameState
 			gcd.update();
 		}
 
-		for(GameCharacterTurrets t : characterTurrets)
+		for(GameTurret t : turrets)
 			t.update();
 	}
 
@@ -218,9 +229,6 @@ public class GameState
 	 */
 	public void display()
 	{
-		
-		for(GameCharacterTurrets t : characterTurrets)
-			t.display();
 
 		for(GameCharacterDrawings d : characterDrawings)
 			d.display();
@@ -228,8 +236,11 @@ public class GameState
 		for(GameCharacter c : characters)
 			c.display();
 
-		for(GameCharacterBullets b : characterBullets)
+		for(GameBullets b : bullets)
 			b.display();
+
+		for(GameTurret t : turrets)
+			t.display();
 
 	}
 }

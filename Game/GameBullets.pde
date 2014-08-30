@@ -1,9 +1,10 @@
-public class GameCharacterBullets
+public class GameBullets
 {
 	private GameBullet[] bullets;		// array of bullets
 	private int bulletIndex;				// keep track most recently drawn drawing
+	private int size;								// size of bullet
 
-	public GameCharacterBullets()
+	public GameBullets(int r, int g, int b, int s)
 	{
 		bulletIndex = 0;
 
@@ -11,19 +12,7 @@ public class GameCharacterBullets
 		bullets = new GameBullet[1000];
 		for(int i = 0; i < bullets.length; i++)
 		{
-			bullets[i] = new GameBullet(0, 0, 0, 25);
-		}
-	}
-
-	public GameCharacterBullets(int r, int g, int b)
-	{
-		bulletIndex = 0;
-
-		// initialize all the bullets
-		bullets = new GameBullet[1000];
-		for(int i = 0; i < bullets.length; i++)
-		{
-			bullets[i] = new GameBullet(r, g, b, 25);
+			bullets[i] = new GameBullet(r, g, b, s);
 		}
 	}
 
@@ -51,18 +40,6 @@ public class GameCharacterBullets
 		bullets[bulletIndex].setAccelerationX(ax);
 		bullets[bulletIndex].setAccelerationY(ay);
 		bullets[bulletIndex].setIsVisible(true);
-
-		increaseBulletIndex();
-	}
-
-	/**
-	 * add an inactive bullet, this way we can differentiate between strokes
-	 */
-	public void addBreak()
-	{
-		bullets[bulletIndex].setPositionX(0);
-		bullets[bulletIndex].setPositionY(0);
-		bullets[bulletIndex].setIsVisible(false);
 
 		increaseBulletIndex();
 	}
