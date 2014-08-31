@@ -20,9 +20,9 @@ public class GameState
 		for(int i = 0; i < characters.length; i++)
 		{
 			if(i == 0)
-				characters[i] = new GameCharacter(10, 10, true, loadImage("resources/blue.png"));
+				characters[i] = new GameCharacter(10, 10, 150, loadImage("resources/blue.png"));
 			else
-				characters[i] = new GameCharacter(10, 10, false, loadImage("resources/red.png"));
+				characters[i] = new GameCharacter(10, 10, 150, loadImage("resources/red.png"));
 			characters[i].setPositionX(width/2);
 			characters[i].setPositionY(height - (height/5 + (3*height/5)*i));
 			characters[i].setIsVisible(true);
@@ -184,24 +184,33 @@ public class GameState
 						{
 							// TODO make this more legit
 							bullet.setIsVisible(false);
-							bullets[d + numberOfTurrets].addBullet(bullet.getPositionX(),
+							int r = bullet.getRadius();
+							if(r >= 4)
+							{
+								int rp = r / 2;
+								bullets[d + numberOfTurrets].addBullet(bullet.getPositionX(),
 																						bullet.getPositionY(),
-																						bullet.getVelocityX() * -5.0,
-																						bullet.getVelocityY() * -5.0,
-																						bullet.getAccelerationX() * -5.0,
-																						bullet.getAccelerationY() * -5.0);
-							bullets[d + numberOfTurrets].addBullet(bullet.getPositionX(),
-																						bullet.getPositionY(),
-																						bullet.getVelocityX() * -3.5,
-																						bullet.getVelocityY() * -3.5,
-																						bullet.getAccelerationX() * -3.5,
-																						bullet.getAccelerationY() * -3.5);
-							bullets[d + numberOfTurrets].addBullet(bullet.getPositionX(),
-																						bullet.getPositionY(),
-																						bullet.getVelocityX() * 3.5,
-																						bullet.getVelocityY() * -3.5,
-																						bullet.getAccelerationX() * 3.5,
-																						bullet.getAccelerationY() * -3.5);
+																						bullet.getVelocityX() * -3.0,
+																						bullet.getVelocityY() * -3.0,
+																						bullet.getAccelerationX() * -3.0,
+																						bullet.getAccelerationY() * -3.0,
+																						rp);
+								bullets[d + numberOfTurrets].addBullet(bullet.getPositionX(),
+																							bullet.getPositionY(),
+																							bullet.getVelocityX() * -2.0,
+																							bullet.getVelocityY() * -2.0,
+																							bullet.getAccelerationX() * -2.0,
+																							bullet.getAccelerationY() * -2.0,
+																							rp);
+								bullets[d + numberOfTurrets].addBullet(bullet.getPositionX(),
+																							bullet.getPositionY(),
+																							bullet.getVelocityX() * 2.0,
+																							bullet.getVelocityY() * -2.0,
+																							bullet.getAccelerationX() * 2.0,
+																							bullet.getAccelerationY() * -2.0,
+																							rp);
+							}
+							
 						}
 					}
 				}
@@ -239,9 +248,12 @@ public class GameState
 		{
 			GameCharacterDrawings gcd = characterDrawings[d];
 			
-			if(gcd.getIsDrawing())
+			if(gcd.getIsDrawing() && characters[d].hasInk())
+			{
 				gcd.addDrawing(characters[d].getPositionX(),
 											 characters[d].getPositionY());
+				characters[d].setInkLevel(characters[d].getInkLevel() - 1);
+			}
 			else
 				gcd.addBreak();
 

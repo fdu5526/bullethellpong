@@ -7,6 +7,7 @@ public class GameBullets
 	public GameBullets(int r, int g, int b, int s)
 	{
 		bulletIndex = 0;
+		this.size = s;
 
 		// initialize all the bullets
 		bullets = new GameBullet[1000];
@@ -30,7 +31,7 @@ public class GameBullets
 	/**
 	 * add an active bullet
 	 */
-	public void addBullet(float px, float py, float vx, float vy, float ax, float ay)
+	public void addBullet(float px, float py, float vx, float vy, float ax, float ay, int radius)
 	{
 		// reset lifespan, set to new location
 		bullets[bulletIndex].setPositionX(px);
@@ -40,8 +41,14 @@ public class GameBullets
 		bullets[bulletIndex].setAccelerationX(ax);
 		bullets[bulletIndex].setAccelerationY(ay);
 		bullets[bulletIndex].setIsVisible(true);
+		bullets[bulletIndex].setRadius(radius);
 
 		increaseBulletIndex();
+	}
+
+	public int getBulletSize()
+	{
+		return size;
 	}
 
 	/**

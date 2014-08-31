@@ -8,7 +8,7 @@ public class GameCharacter extends GameObject
 	private boolean isFacingUp;					// whether this character is facing up or not
 	private GameTurret turret;					// the turret if the player is holding onto a turret
 
-	public GameCharacter(float maxSpeed, float radius, boolean isFacingUp, PImage sprite)
+	public GameCharacter(float maxSpeed, float radius, int maxInkLevel, PImage sprite)
 	{
 		super();
 		this.maxSpeed = maxSpeed;
@@ -16,6 +16,8 @@ public class GameCharacter extends GameObject
 		this.sprite = sprite;
 		this.isFacingUp = isFacingUp;
 		this.turret = null;
+		this.maxInkLevel = maxInkLevel;
+		this.inkLevel = maxInkLevel / 3 * 2;
 		numberOfLives = 5;
 	}
 
@@ -32,6 +34,7 @@ public class GameCharacter extends GameObject
 	public void setNumberOfLives(int l) { numberOfLives = l; }
 	public int getNumberOfLives() { return numberOfLives; }
 	public boolean hasTurret(){return turret != null; }
+	
 	/**
 	 * get the radius of the character
 	 */
@@ -39,6 +42,8 @@ public class GameCharacter extends GameObject
 
 	public void setInkLevel(int level) { inkLevel = Math.min(maxInkLevel, level); }
 	public int getInkLevel() { return inkLevel; }
+	public int getMaxInkLevel() { return maxInkLevel; }
+	public boolean hasInk() { return inkLevel != 0; }
 
 	public void getTurret(GameTurret turret) 
 	{ 
