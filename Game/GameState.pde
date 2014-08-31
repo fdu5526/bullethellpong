@@ -4,6 +4,7 @@ public class GameState
 	private GameBullets[] bullets;											// bullets of each type
 	private GameCharacterDrawings[] characterDrawings;	// drawings of each character
 	private GameTurret[] turrets;												// turrets
+	private GameInks inks;															// all the inks of a game
 
 	private final int numberOfPlayers = 2;							// number of players in the game
 	private final int numberOfTurrets = 3;							// number of turrets in the game
@@ -14,6 +15,7 @@ public class GameState
 		characterDrawings = new GameCharacterDrawings[numberOfPlayers];
 		bullets = new GameBullets[numberOfTurrets + numberOfPlayers];
 		turrets = new GameTurret[numberOfTurrets];
+		inks = new GameInks();
 
 		// create character
 		// TODO put legit positions onto characters
@@ -107,6 +109,40 @@ public class GameState
 			}
 		}
 	}
+
+
+	/**
+	 * loop through ink and characters, add ink accordingly
+	 */
+	private void checkInkCollideWithCharacter()
+	{
+				// check bullet collision with character
+		for(int c = 0; c < characters.length; c++)
+		{
+			GameCharacter character = characters[c];
+
+			GameInk[] ik = inks.getInks();
+			// loop through each type of bullets
+			for(int i = 0; i < ik.length; i++)
+			{
+				// skip if ink is not active
+				if(!ik[i].getIsVisible())
+					continue;
+
+				// collision
+				if(collisionCircleWithCircle(character.getPositionX(), character.getPositionY(), character.getRadius(),
+																		 ik[i].getPositionX(), ik[i].getPositionY(), ik[i].getRadius() * 3))
+				{
+					int l = character.getInkLevel() + ik[i].getRadius();
+					character.setInkLevel(l);
+					if(l > character.getMaxInkLevel())
+						inks.addInk(character.getPositionX(), character.getPositionY(), l - character.getMaxInkLevel());
+					ik[i].setRadius(0);
+				}
+			}
+		}
+	}
+
 
 	/**
 	 * loop through drawings and bullets, kill characters accordingly
@@ -227,6 +263,7 @@ public class GameState
 	{
 		checkBulletCollideWithCharacter();
 		checkBulletCollideWithDrawing();
+		checkInkCollideWithCharacter();
 	}
 
 	/**
@@ -255,13 +292,22 @@ public class GameState
 				characters[d].setInkLevel(characters[d].getInkLevel() - 1);
 			}
 			else
-				gcd.addBreak();
+			{
+				int r = gcd.getCurrentStreakLength();
+				if(r > 0)
+				{
+					inks.addInk(characters[d].getPositionX(), characters[d].getPositionY(), r);
+					gcd.addBreak();
+				}
+			}
 
 			gcd.update();
 		}
 
 		for(GameTurret t : turrets)
 			t.update();
+
+		inks.update();
 	}
 
 	/**
@@ -281,6 +327,8 @@ public class GameState
 
 		for(GameTurret t : turrets)
 			t.display();
+
+		inks.display();
 
 	}
 }

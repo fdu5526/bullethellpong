@@ -5,6 +5,7 @@ public class GameCharacterDrawings
 	private int drawingIndex;					// keep track most recently drawn drawing
 	private boolean isDrawing;				// whether we are currently drawing
 	private int r, g, b;							// color of the drawing
+	private int currentStreakLength;	// how many drawings the current streak is
 
 
 	public GameCharacterDrawings(float maxLifeSpan)
@@ -60,8 +61,11 @@ public class GameCharacterDrawings
 		drawings[drawingIndex].setPositionY(y);
 		drawings[drawingIndex].resetLifespan(maxLifeSpan);
 
+		currentStreakLength++;
 		increaseDrawingIndex();
 	}
+
+	public int getCurrentStreakLength() { return currentStreakLength; }
 
 	/**
 	 * add an inactive drawing, this way we can differentiate between strokes
@@ -73,6 +77,7 @@ public class GameCharacterDrawings
 		drawings[drawingIndex].removeLifespan();
 
 		increaseDrawingIndex();
+		currentStreakLength = 0;
 	}
 
 	public void setIsDrawing(boolean b) { isDrawing = b; }

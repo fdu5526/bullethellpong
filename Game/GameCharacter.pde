@@ -77,7 +77,6 @@ public class GameCharacter extends GameObject
 			pX = tempX;
 		if(30f <= tempY && tempY < height - 30f)
 			pY = tempY;
-		
 	}
 	
 	/**
