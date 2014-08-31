@@ -131,13 +131,13 @@ public class GameState
 
 				// collision
 				if(collisionCircleWithCircle(character.getPositionX(), character.getPositionY(), character.getRadius(),
-																		 ik[i].getPositionX(), ik[i].getPositionY(), ik[i].getRadius() * 3))
+																		 ik[i].getPositionX(), ik[i].getPositionY(), ik[i].getRadius() * 1.1))
 				{
-					int l = character.getInkLevel() + ik[i].getRadius();
+					int l = character.getInkLevel() + ik[i].getAmount();
 					character.setInkLevel(l);
 					if(l > character.getMaxInkLevel())
 						inks.addInk(character.getPositionX(), character.getPositionY(), l - character.getMaxInkLevel());
-					ik[i].setRadius(0);
+					ik[i].setAmount(0);
 				}
 			}
 		}

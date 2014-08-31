@@ -1,20 +1,24 @@
 public class GameInk extends GameObject
 {
-	private int radius;
+	private int amount;
 
 	public GameInk()
 	{
 		super();
-		this.radius = 0;
+		this.amount = 0;
 	}
 
-	public int getRadius() { return radius; }
-	public void setRadius(int radius) { this.radius = radius; }
-	public boolean getIsVisible() { return radius > 0; }
-
+	public int getRadius() { return Math.min(60, Math.max(30, amount)); }
+	public void setAmount(int amount) { this.amount = amount; }
+	public int getAmount() { return amount; }
+	public boolean getIsVisible() { return amount > 0; }
+	public float getPositionX(){ return pX - this.pX/this.getRadius()/2; }
+	public float getPositionY(){ return pY - this.pY/this.getRadius()/2; }
 	public void update()
 	{
 		// uses euler integration
+		vX += aX;
+		vY += aY;
 		float tempX = pX + vX;
 		float tempY = pY + vY;
 		
@@ -40,12 +44,13 @@ public class GameInk extends GameObject
 
 	public void display()
 	{
-		if(radius <= 0)
+		if(amount <= 0)
 			return;
 
+		int r = this.getRadius();
 		stroke(0);
 		strokeWeight(2);
 		fill(255);
-		rect(pX - radius/2, pY - radius/2, radius, radius);
+		rect(pX - r/2, pY - r/2, r, r);
 	}
 }

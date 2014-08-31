@@ -25,6 +25,7 @@ void setup()
  */
 void draw()
 {
+
 	background(50);
 	gameState.update();
 	gameState.display();

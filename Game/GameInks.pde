@@ -29,17 +29,17 @@ public class GameInks
 	/**
 	 * add an active ink
 	 */
-	public void addInk(float px, float py, int radius)
+	public void addInk(float px, float py, int amount)
 	{
 		// reset lifespan, set to new location
 		inks[inkIndex].setPositionX(px);
 		inks[inkIndex].setPositionY(py);
 		inks[inkIndex].setVelocityX(random(-10, 10));
 		inks[inkIndex].setVelocityY(random(-10, 10));
-		inks[inkIndex].setAccelerationX(random(-1, 1));
-		inks[inkIndex].setAccelerationY(random(-1, 1));
+		inks[inkIndex].setAccelerationX(inks[inkIndex].getVelocityX()/-750.0);
+		inks[inkIndex].setAccelerationY(inks[inkIndex].getVelocityY()/-750.0);
 		inks[inkIndex].setIsVisible(true);
-		inks[inkIndex].setRadius(radius);
+		inks[inkIndex].setAmount(amount);
 
 		increaseInkIndex();
 	}
@@ -47,7 +47,7 @@ public class GameInks
 	public int getAndRemoveInkAtIndex(int i)
 	{
 		inks[i].setIsVisible(false);
-		return inks[i].getRadius();
+		return inks[i].getAmount();
 	}
 
 	/**
