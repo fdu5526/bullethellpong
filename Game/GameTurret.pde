@@ -44,7 +44,7 @@ public class GameTurret extends GameObject
 		if(currentTime() - lastTimeshot > cooldown)
 		{
 			float x = cos(currentTime()/cooldown) * 1.5;
-			float y = sin(currentTime()/cooldown * 1.5);
+			float y = sin(currentTime()/cooldown) * 1.5;
 			bullets.addBullet(pX, pY, x, y, x/100.0, y/100.0, bullets.getBulletSize());
 			bullets.addBullet(pX, pY, -x, -y, x/-100.0, y/-100.0, bullets.getBulletSize());
 			lastTimeshot = currentTime();

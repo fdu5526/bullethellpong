@@ -36,17 +36,17 @@ public class GameState
 
 		// create characters' bullets
 		for(int i = 0; i < bullets.length; i++)
-			bullets[i] = new GameBullets(255,255,255, 25);
+			bullets[i] = new GameBullets(255,255,255, 25, 1000);
 
 
 		// TODO delete me
 		characterDrawings[0] = new GameCharacterDrawings(20f, 49, 49, 213);
 		characterDrawings[1] = new GameCharacterDrawings(20f, 213, 49, 49);
-		bullets[0] = new GameBullets(49, 213, 49, 25);
-		bullets[1] = new GameBullets(49, 213, 49, 20);
-		bullets[2] = new GameBullets(49, 213, 49, 35);
-		bullets[3] = new GameBullets(49, 49, 213, 25);
-		bullets[4] = new GameBullets(213, 49, 49, 25);
+		bullets[0] = new GameBullets(49, 213, 49, 25, 2000);
+		bullets[1] = new GameBullets(49, 213, 49, 20, 2000);
+		bullets[2] = new GameBullets(49, 213, 49, 35, 2000);
+		bullets[3] = new GameBullets(49, 49, 213, 25, 500);
+		bullets[4] = new GameBullets(213, 49, 49, 25, 500);
 
 
 
@@ -57,9 +57,9 @@ public class GameState
 
 
 		// TODO delete me
-		turrets[0] = new GameTurret(bullets[0], 49, 213, 49, 750);
-		turrets[1] = new GameTurret(bullets[1], 49, 213, 49, 500);
-		turrets[2] = new GameTurret(bullets[2], 49, 213, 49, 1000);
+		turrets[0] = new GameTurret(bullets[0], 49, 213, 49, 375);
+		turrets[1] = new GameTurret(bullets[1], 49, 213, 49, 250);
+		turrets[2] = new GameTurret(bullets[2], 49, 213, 49, 500);
 		setTurretsStartPosition();
 		
 		

@@ -4,13 +4,13 @@ public class GameBullets
 	private int bulletIndex;				// keep track most recently drawn drawing
 	private int size;								// size of bullet
 
-	public GameBullets(int r, int g, int b, int s)
+	public GameBullets(int r, int g, int b, int s, int amount)
 	{
 		bulletIndex = 0;
 		this.size = s;
 
 		// initialize all the bullets
-		bullets = new GameBullet[1000];
+		bullets = new GameBullet[amount];
 		for(int i = 0; i < bullets.length; i++)
 		{
 			bullets[i] = new GameBullet(r, g, b, s);
